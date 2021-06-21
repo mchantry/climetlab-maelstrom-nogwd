@@ -12,7 +12,7 @@ import climetlab as cml
 
 def test_read():
     ds = cml.load_dataset(
-        "maelstrom-nogwd-nogwd",
+        "maelstrom-nogwd",
         dates="2015-01-01"
     )
     xds = ds.to_xarray()

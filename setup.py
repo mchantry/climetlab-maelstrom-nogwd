@@ -35,7 +35,7 @@ extras_require = {}
 setuptools.setup(
     name=package_name,
     version=version,
-    description="A dataset plugin for climetlab for the dataset maelstrom-nogwd/nogwd.",
+    description="A dataset plugin for climetlab for the dataset maelstrom-nogwd/nogwd.\n",
     long_description=read("README.md"),
     long_description_content_type="text/markdown",
     author="Matthew Chantry",
@@ -49,8 +49,7 @@ setuptools.setup(
     zip_safe=True,
     entry_points={
         "climetlab.datasets": [
-            "maelstrom-nogwd-nogwd = climetlab_maelstrom_nogwd.nogwd:Nogwd",
-            # "maelstrom-nogwd-other-dataset = climetlab_maelstrom_nogwd.other_dataset:OtherDatasetClass",
+            "maelstrom-nogwd = climetlab_maelstrom_nogwd.nogwd:nogwd",
         ]
     },
     keywords="meteorology",
