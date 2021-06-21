@@ -26,9 +26,9 @@ The climetlab python package allows easy access to the data with a few lines of 
 
 !pip install climetlab climetlab_maelstrom_nogwd
 import climetlab as cml
-ds = cml.load_dataset("maelstrom-nogwd-nogwd", date='2015-01-01')
+ds = cml.load_dataset("maelstrom-nogwd", date='2015-01-01')
 ds.to_xarray()
 #or
-ds = cml.load_dataset("maelstrom-nogwd-nogwd", dataset='training')
+ds = cml.load_dataset("maelstrom-nogwd", dataset='training')
 ds.to_xarray()
 ```
