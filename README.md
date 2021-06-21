@@ -11,7 +11,8 @@ In this README is a description of how to get the maelstrom-nogwd.
 ## Dataset description
 Contains the input/output dataset for learning non-orographic 
 gravity wave drag, as described in https://arxiv.org/abs/2101.08195
-Data is group by forecast start date.
+
+Data is grouped by forecast start date.
 
 ## Using climetlab to access the data
 Data can be accessed either by forecast start-date or dataset type.
