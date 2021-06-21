@@ -8,30 +8,27 @@ Features
 
 In this README is a description of how to get the maelstrom-nogwd.
 
-## Datasets description
+## Dataset description
+Contains the input/output dataset for learning non-orographic 
+gravity wave drag, as described in https://arxiv.org/abs/2101.08195
+Data is group by forecast start date.
 
-There are two datasets: 
+## Using climetlab to access the data
+Data can be accessed either by forecast start-date or dataset type.
+With neither argument provided, the first file is loaded, corresponding
+to 2015-01-01. Incorrect dates will be flagged.
+Dataset types are "training", "validation" & "testing" corresponding
+to the date groups outlined in https://arxiv.org/abs/2101.08195
 
-### 1 : `nogwd`
-
-
-### 2
-TODO
-
-
-## Using climetlab to access the data (supports grib, netcdf and zarr)
-
-See the demo notebooks here (https://github.com/ecmwf-lab/climetlab_maelstrom_nogwd/notebooks
-
-https://github.com/ecmwf-lab/climetlab_maelstrom_nogwd/notebooks/demo_nogwd.ipynb
-[nbviewer] (https://nbviewer.jupyter.org/github/climetlab_maelstrom_nogwd/blob/main/notebooks/demo_nogwd.ipynb) 
-[colab] (https://colab.research.google.com/github/climetlab_maelstrom_nogwd/blob/main/notebooks/demo_nogwd.ipynb) 
 
 The climetlab python package allows easy access to the data with a few lines of code such as:
 ```
 
 !pip install climetlab climetlab_maelstrom_nogwd
 import climetlab as cml
-ds = cml.load_dataset(""maelstrom-nogwd-nogwd", date='20201231',)
+ds = cml.load_dataset("maelstrom-nogwd-nogwd", date='2015-01-01')
+ds.to_xarray()
+#or
+ds = cml.load_dataset("maelstrom-nogwd-nogwd", dataset='training')
 ds.to_xarray()
 ```
