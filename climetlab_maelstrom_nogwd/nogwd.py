@@ -10,7 +10,7 @@ from __future__ import annotations
 
 import climetlab as cml
 from climetlab import Dataset
-from climetlab.normalize import normalize_args,DateListNormaliser
+from climetlab.normalize import DateListNormaliser
 import pandas as pd
 import xarray as xr
 
@@ -24,16 +24,30 @@ class nogwd(Dataset):
     name = "NOGWD 91 level dataset"
     home_page = "https://github.com/mchantry/maelstrom-nogwd"
     licence = "-"
-    documentation = "-"
-    citation = "-"
-
+    documentation = ("Contains the input/output dataset for learning non-orographic gravity wave \n"
+                     "drag, as described in https://arxiv.org/abs/2101.08195 \n"
+                     "Data is grouped by forecast start date. \n"
+                     "Data has been preprocessed into inputs 'x' and outputs 'y'. \n"
+                     "'x' contains vertical profiles of winds & temperature plus surface values \n"
+                     "of pressure and geopotential. \n"
+                     "'y' contains the the wind increments due to parametrised non-orographic \n"
+                     "gravity wave drag. The machine learning task is to predict y given x. \n"
+                     "Unlike many ML tasks within the field of weather and climate, this task \n"
+                     "can be predicted independently for each column of atmosphere. \n"
+                     "Data can be accessed either by forecast start-date or dataset type. \n"
+                     "With neither argument provided, the first file is loaded, corresponding \n"
+                     "to 2015-01-01 (the 'tier-1' dataset). Incorrect dates will be flagged. \n"
+                     "Other dataset types are 'training', 'validation' & 'testing' corresponding \n"
+                     "to the date groups outlined in https://arxiv.org/abs/2101.08195"
+                     )
+    citation = "Chantry, Matthew, et al. 'Machine learning emulation of gravity wave drag in numerical weather forecasting.' Journal of Advances in Modeling Earth Systems (2020): e2021MS002477."
     terms_of_use = (
         "By downloading data from this dataset, you agree to the terms and conditions defined at "
         "https://github.com/ecmwf-lab/climetlab_maelstrom_nogwd/LICENSE"
         "If you do not agree with such terms, do not download the data. "
     )
     dataset = None
-    dataset_dates = {'minimal':'2015-01-01',
+    dataset_dates = {'tier-1':'2015-01-01',
                      'training':pd.date_range(start='2015-01-01',
                                               end='2015-12-01',
                                               freq='30D'),
@@ -49,10 +63,13 @@ class nogwd(Dataset):
 
     def __init__(self, date=None,dataset=None):
         if dataset is None:
+            if date is None:
+                print("No dataset or date provided, using 'tier-1/2015-01-01'")
+                date = '2015-01-01'
             self.date = self.parse_date(date)
         else:
             if dataset not in self.dataset_dates.keys():
-                raise ValueError(f"{dataset} is not in {dataset_dates.keys()}")
+                raise ValueError(f"{dataset} is not in {self.dataset_dates.keys()}")
             self.date = self.parse_date(self.dataset_dates[dataset])
         self._load()
 
